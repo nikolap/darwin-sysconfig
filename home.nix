@@ -27,6 +27,7 @@
     yarn
     jdk17
     terraform
+    tfsec
     clojure
     leiningen
     clj-kondo

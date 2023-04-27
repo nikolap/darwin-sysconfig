@@ -2,6 +2,7 @@
 
 let 
 isPersonal = true;
+isDI = true;
 localName = "nik-macbook";
 
 in {
@@ -145,7 +146,6 @@ in {
       "docker"
       "iterm2"
       "spectacle"
-      "tunnelblick" # TODO: remove after DI
       "jetbrains-toolbox"
       "spotify"
       "slack"
@@ -158,7 +158,6 @@ in {
       "firefox"
       "vlc"
       "browserosaurus"
-      "karabiner-elements"
       "protonvpn"
       "steam"
       "whatsapp"
@@ -174,6 +173,10 @@ in {
       "tresorit"
       "authy"
       "bitwarden"
+    ] ++ lib.optionals isDI [
+      "1password"
+      "tunnelblick"
+      "mongodb-compass"
     ];
   };
 }

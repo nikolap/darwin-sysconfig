@@ -1,5 +1,0 @@
-## TODOs
-
-- ip script in Allianz
-- dnsmasq
-- Delete Mongo and 1Password after DI
