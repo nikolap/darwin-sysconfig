@@ -1,16 +1,18 @@
 { pkgs, lib, ... }:
 
-let 
-isPersonal = true;
-isDI = true;
-localName = "nik-macbook";
+let
+  isPersonal = true;
+  isDI = true;
+  localName = "nik-macbook";
 
 in {
   # Nix configuration ------------------------------------------------------------------------------
 
   nix.settings.substituters = [ "https://cache.nixos.org/" ];
-  nix.settings.trusted-public-keys =
-    [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+  nix.settings.trusted-public-keys = [
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+  ];
   nix.settings.trusted-users = [ "@admin" ];
   nix.configureBuildUsers = true;
 
@@ -58,8 +60,6 @@ in {
       eval "$(zoxide init zsh)"
       eval "$(direnv hook zsh)"
       export GPG_TTY=$(tty)
-
-      alias skuld="nix run github:DEEP-IMPACT-AG/skuld"
     '';
   };
 
@@ -98,10 +98,14 @@ in {
     nix-output-monitor
     nixpkgs-fmt
     oath-toolkit
+    dnsmasq
     (pkgs.writeScriptBin "rebuild" ''
       cd ~/.config/sysconfig && \
       ${pkgs.nix-output-monitor}/bin/nom build .#darwinConfigurations.${localName}.system && \
       ./result/sw/bin/darwin-rebuild switch --flake .
+    '')
+    (pkgs.writeScriptBin "local-dnsmasq" ''
+      sudo ${pkgs.dnsmasq}/bin/dnsmasq --listen-address=127.0.0.1 --port=53 --address=/local/127.0.0.1
     '')
   ];
 
@@ -128,13 +132,12 @@ in {
     }];
   };
 
+  system.activationScripts.postUserActivation.text = ''
+    sudo sh -c 'echo "nameserver 127.0.0.1" >> /etc/resolver/local'
+  '';
+
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
-
-  services.dnsmasq = {
-    enable = true;
-    addresses = { local = "127.0.0.1"; };
-  };
 
   homebrew = {
     enable = true;
@@ -173,10 +176,6 @@ in {
       "tresorit"
       "authy"
       "bitwarden"
-    ] ++ lib.optionals isDI [
-      "1password"
-      "tunnelblick"
-      "mongodb-compass"
-    ];
+    ] ++ lib.optionals isDI [ "1password" "tunnelblick" "mongodb-compass" ];
   };
 }

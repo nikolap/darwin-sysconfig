@@ -9,36 +9,38 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    skuld.url = "github:DEEP-IMPACT-AG/skuld/master";
+    skuld.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, darwin, nixpkgs, home-manager, ... }@inputs:
-  let 
-    localName = "nik-macbook"; 
-    
-    inherit (darwin.lib) darwinSystem;
-    inherit (inputs.nixpkgs.lib) attrValues makeOverridable optionalAttrs singleton;
-    nixpkgsConfig = {
-      config = { allowUnfree = true; };
-    }; 
-  in
-  {
-    darwinConfigurations = rec {
-      ${localName} = darwinSystem {
-        system = "aarch64-darwin";
-        modules = [ 
-          # Main `nix-darwin` config
-          ./configuration.nix
-          # `home-manager` module
-          home-manager.darwinModules.home-manager
-          {
-            nixpkgs = nixpkgsConfig;
-            # `home-manager` config
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.nperic = import ./home.nix;            
-          }
-        ];
+  outputs = { self, darwin, nixpkgs, home-manager, skuld, ... }@inputs:
+    let
+      localName = "nik-macbook";
+      system = "aarch64-darwin";
+
+      inherit (darwin.lib) darwinSystem;
+      inherit (inputs.nixpkgs.lib)
+        attrValues makeOverridable optionalAttrs singleton;
+      nixpkgsConfig = { config = { allowUnfree = true; }; };
+    in {
+      darwinConfigurations = rec {
+        ${localName} = darwinSystem {
+          system = system;
+          modules = [
+            # Main `nix-darwin` config
+            ./configuration.nix
+            # `home-manager` module
+            home-manager.darwinModules.home-manager
+            {
+              nixpkgs = nixpkgsConfig;
+              # `home-manager` config
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.nperic = import ./home.nix;
+              environment.systemPackages = [ (skuld.defaultPackage.${system}) ];
+            }
+          ];
+        };
       };
     };
- };
 }

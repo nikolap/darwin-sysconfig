@@ -21,6 +21,21 @@
         "type": "github"
       }
     },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1656928814,
+        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -61,7 +76,30 @@
       "inputs": {
         "darwin": "darwin",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "skuld": "skuld"
+      }
+    },
+    "skuld": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1657526792,
+        "narHash": "sha256-SHWRNxhG37Di6D7fywuYGtObeEcV6CNa0Ny9gywhfwo=",
+        "owner": "DEEP-IMPACT-AG",
+        "repo": "skuld",
+        "rev": "5e5f7c858ac55171179e17b5f6887029053c92fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DEEP-IMPACT-AG",
+        "ref": "master",
+        "repo": "skuld",
+        "type": "github"
       }
     }
   },
