@@ -31,6 +31,7 @@
     clojure
     leiningen
     clj-kondo
+    babashka
     just
     awscli2
 

@@ -22,5 +22,5 @@ nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
 ## TODOs
 
 - [x] proper skuld setup
-- [ ] dnsmasq
+- [x] dnsmasq
 - [ ] ip script in Allianz
