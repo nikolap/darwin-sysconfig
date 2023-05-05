@@ -35,6 +35,10 @@
     just
     awscli2
 
+    protobuf
+    rustc
+    python3
+
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
     comma # run software from without installing it
