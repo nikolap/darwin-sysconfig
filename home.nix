@@ -28,6 +28,7 @@
     jdk17
     terraform
     tfsec
+    graphviz
     clojure
     leiningen
     clj-kondo

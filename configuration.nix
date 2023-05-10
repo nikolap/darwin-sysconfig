@@ -60,6 +60,7 @@ in {
       eval "$(zoxide init zsh)"
       eval "$(direnv hook zsh)"
       export GPG_TTY=$(tty)
+      export PATH=$PATH:~/.docker/bin
     '';
   };
 
