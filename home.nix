@@ -24,6 +24,7 @@
     jq
     nodePackages.typescript
     nodejs
+    nodePackages.pnpm
     yarn
     jdk17
     terraform

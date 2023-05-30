@@ -2,7 +2,7 @@
 
 let
   isPersonal = true;
-  isDI = true;
+  isDI = false;
   localName = "nik-macbook";
 
 in {
@@ -89,6 +89,7 @@ in {
     fasd
     tree
     fira-code
+    cloc
     editorconfig-core-c
     sqlite
     texlive.combined.scheme-medium
@@ -111,6 +112,11 @@ in {
   ];
 
   environment.shellAliases = { vim = "nvim"; };
+
+  environment.postBuild = ''
+    ln -sv ${pkgs.path} $out/nixpkgs
+  '';
+  nix.nixPath = [ "nixpkgs=/run/current-system/sw/nixpkgs" ];
 
   programs.vim.enable = true;
   programs.nix-index.enable = true;
