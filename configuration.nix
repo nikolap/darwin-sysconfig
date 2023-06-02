@@ -101,6 +101,7 @@ in {
     nixpkgs-fmt
     oath-toolkit
     dnsmasq
+    git-filter-repo
     (pkgs.writeScriptBin "rebuild" ''
       cd ~/.config/sysconfig && \
       ${pkgs.nix-output-monitor}/bin/nom build .#darwinConfigurations.${localName}.system && \
