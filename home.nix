@@ -25,6 +25,7 @@
     nodePackages.typescript
     nodejs
     nodePackages.pnpm
+    nodePackages.ts-node
     yarn
     jdk17
     terraform
@@ -36,6 +37,7 @@
     babashka
     just
     awscli2
+    pgcli
 
     protobuf
     rustc
@@ -44,6 +46,17 @@
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
     comma # run software from without installing it
+
+    # other dev stuff
+    supabase-cli
+    sqitchPg
+    flyway
+    postgresql_15
+    infracost
+
+    # properti
+    tippecanoe
+    dotnet-sdk
 
   ] ++ lib.optionals stdenv.isDarwin [
     cocoapods

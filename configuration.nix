@@ -102,6 +102,8 @@ in {
     oath-toolkit
     dnsmasq
     git-filter-repo
+    git-lfs
+    moreutils
     (pkgs.writeScriptBin "rebuild" ''
       cd ~/.config/sysconfig && \
       ${pkgs.nix-output-monitor}/bin/nom build .#darwinConfigurations.${localName}.system && \
@@ -153,8 +155,8 @@ in {
     # updates homebrew packages on activation,
     # can make darwin-rebuild much slower (otherwise i'd forget to do it ever though)
     casks = [
-      "alfred"
-      "docker"
+      "raycast"
+      "orbstack"
       "iterm2"
       "spectacle"
       "jetbrains-toolbox"
@@ -164,6 +166,7 @@ in {
       "insomnia"
       "zoom"
       "webex"
+      "postman"
     ] ++ lib.optionals isPersonal [
       "audacity"
       "firefox"
